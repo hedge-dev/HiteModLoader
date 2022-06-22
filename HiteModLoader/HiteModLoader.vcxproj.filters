@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Loader.cpp" />
+    <ClCompile Include="CriLoader.cpp">
+      <Filter>Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="CodeLoader.cpp">
+      <Filter>Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="ConfigLoader.cpp">
+      <Filter>Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="ModLoader.cpp">
+      <Filter>Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="SigScan.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="include\CommonLoader.h">
+      <Filter>Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\detours.h">
+      <Filter>Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\detver.h">
+      <Filter>Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\INIReader.h">
+      <Filter>Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Helpers.h" />
+    <ClInclude Include="include\syelog.h">
+      <Filter>Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="SigScan.h" />
+    <ClInclude Include="Loader.h" />
+    <ClInclude Include="CriLoader.h">
+      <Filter>Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HiteModLoader.h">
+      <Filter>Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigLoader.h">
+      <Filter>Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="CodeLoader.h">
+      <Filter>Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="ModLoader.h">
+      <Filter>Loaders</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="HiteModLoader.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Includes">
+      <UniqueIdentifier>{95fd4884-f50b-4347-ac1b-565468544f17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Loaders">
+      <UniqueIdentifier>{38e8079d-8910-4d34-b71e-2c136d876303}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
