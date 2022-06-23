@@ -35,7 +35,7 @@ void InitLoaders()
     // Check signatures
     if (!SigValid)
     {
-        MessageBoxW(nullptr, L"Failed to install mod loader (possibly unsupported game version)", L"Rainbow Mod Loader", MB_ICONERROR);
+        MessageBoxW(nullptr, L"Failed to install mod loader (possibly unsupported game version)", L"Hite Mod Loader", MB_ICONERROR);
         return;
     }
     
@@ -46,9 +46,7 @@ void InitLoaders()
 
     // Init loaders
     InitConfigLoader();
-    LOG("Setting up CriLoader...");
     InitCriLoader();
-    LOG("Loading mods...");
     InitModLoader();
     LOG("Loading code mods...");
     InitCodeLoader(ModCodePaths);

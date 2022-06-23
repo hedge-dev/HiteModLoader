@@ -14,7 +14,7 @@ const char* PathSubString(const char* text)
     return text;
 }
 
-HOOK(HANDLE, __fastcall, crifsiowin_CreateFile, SigCrifsiowin_CreateFile, CriChar8* path, DWORD dwDesiredAccess, DWORD dwShareMode, LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD dwCreationDisposition, int dwFlagsAndAttributes, HANDLE hTemplateFile)
+HOOK(HANDLE, __fastcall, crifsiowin_CreateFile, SigCrifsiowin_CreateFile(), CriChar8* path, DWORD dwDesiredAccess, DWORD dwShareMode, LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD dwCreationDisposition, int dwFlagsAndAttributes, HANDLE hTemplateFile)
 {
     // Mod Check
     DWORD attributes = -1;
@@ -34,7 +34,7 @@ HOOK(HANDLE, __fastcall, crifsiowin_CreateFile, SigCrifsiowin_CreateFile, CriCha
         dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
 }
 
-HOOK(CriError, __fastcall, criFsIoWin_Exists, SigCriFsIoWin_Exists, CriChar8* path, bool* exists)
+HOOK(CriError, __fastcall, criFsIoWin_Exists, SigCriFsIoWin_Exists(), CriChar8* path, bool* exists)
 {
     DWORD attributes = -1;
     for (auto& value : ModIncludePaths)
@@ -64,13 +64,14 @@ HOOK(CriError, __fastcall, criFsIoWin_Exists, SigCriFsIoWin_Exists, CriChar8* pa
     return CRIERR_OK;
 }
 
-HOOK(void, __fastcall, criErr_Notify, SigCriErr_Notify, CriErrorLevel level, const CriChar8* error_id, CriUintPtr p1, CriUintPtr p2)
+HOOK(void, __fastcall, criErr_Notify, SigCriErr_Notify(), CriErrorLevel level, const CriChar8* error_id, CriUintPtr p1, CriUintPtr p2)
 {
     LOG("[criErr_Notify] Level: %d - %s", level, error_id);
 }
 
 void InitCriLoader()
 {
+    LOG("Setting up CriLoader...");
     INSTALL_HOOK(crifsiowin_CreateFile);
     INSTALL_HOOK(criFsIoWin_Exists);
     INSTALL_HOOK(criErr_Notify);

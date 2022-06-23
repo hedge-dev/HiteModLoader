@@ -12,6 +12,7 @@ void InitConfigLoader()
 
     std::string logType = config.GetString("CPKREDIR", "LogType", "");
     std::string logFile = config.GetString("CPKREDIR", "LogFile", "cpkredir.log");
+    ModsDbIniPath = config.GetString("CPKREDIR", "ModsDbIni", "");
     bool useFileLogging = false;
 
     if (!logType.empty())
