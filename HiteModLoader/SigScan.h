@@ -2,8 +2,12 @@
 
 extern bool SigValid;
 
-extern void* SigRunCore(); // 
+// HE
 
-extern void* SigCrifsiowin_CreateFile(); // 
-extern void* SigCriFsIoWin_Exists(); // 
-extern void* SigCriErr_Notify(); // 
+// RSDK
+extern void* SigEngine_LoadFile();
+
+// Cri
+extern void* SigCrifsiowin_CreateFile();
+extern void* SigCriFsIoWin_Exists();
+extern void* SigCriErr_Notify();

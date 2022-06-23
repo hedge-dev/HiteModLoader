@@ -6,6 +6,7 @@
 #include "CriLoader.h"
 #include "CodeLoader.h"
 #include "ModLoader.h"
+#include "DataPackLoader.h"
 
 bool ConsoleEnabled;
 
@@ -48,7 +49,7 @@ void InitLoaders()
     InitConfigLoader();
     InitCriLoader();
     InitModLoader();
-    LOG("Loading code mods...");
+    InitDataPackLoader();
     InitCodeLoader(ModCodePaths);
 
     // Init CommonLoader

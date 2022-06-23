@@ -3,6 +3,7 @@
 #include "Loader.h"
 #include "ModLoader.h"
 #include "SigScan.h"
+#include "Helpers.h"
 
 using std::string;
 
@@ -20,13 +21,12 @@ HOOK(HANDLE, __fastcall, crifsiowin_CreateFile, SigCrifsiowin_CreateFile(), CriC
     DWORD attributes = -1;
     for (auto& value : ModIncludePaths)
     {
-        string filePath = value;
-        filePath += PathSubString(path);
+        string filePath = value + "raw/" + PathSubString(path);
         attributes = GetFileAttributesA(filePath.c_str());
         if (attributes != -1)
         {
             strcpy(path, filePath.c_str());
-            LOG("Loading File: %s", path);
+            LOG("[CriLoader] Loading File: %s", path);
             break;
         }
     }

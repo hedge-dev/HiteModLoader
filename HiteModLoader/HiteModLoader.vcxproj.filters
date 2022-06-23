@@ -17,6 +17,9 @@
       <Filter>Loaders</Filter>
     </ClCompile>
     <ClCompile Include="SigScan.cpp" />
+    <ClCompile Include="DataPackLoader.cpp">
+      <Filter>Loaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -52,6 +55,9 @@
       <Filter>Loaders</Filter>
     </ClInclude>
     <ClInclude Include="ModLoader.h">
+      <Filter>Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="DataPackLoader.h">
       <Filter>Loaders</Filter>
     </ClInclude>
   </ItemGroup>

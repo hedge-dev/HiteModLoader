@@ -8,6 +8,7 @@ std::vector<DllEvent*> ExitEvents;
 
 void InitCodeLoader(std::vector<std::wstring>& dllPaths)
 {
+    LOG("Loading code mods...");
     if (!dllPaths.empty())
     {
         std::vector<DllEvent*> postInitEvents;

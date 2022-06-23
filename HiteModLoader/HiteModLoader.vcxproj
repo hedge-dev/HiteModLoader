@@ -73,6 +73,9 @@
       <AdditionalDependencies>detours.lib;syelog.lib;CommonLoader.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../CommonLoader/CommonLoader/$(Platform)/$(Configuration)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>copy "$(TargetPath)" "D:\SteamLibrary\steamapps\common\SonicOrigins\build\main\projects\exec\d3d11.dll"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -95,11 +98,15 @@
       <AdditionalDependencies>detours.lib;syelog.lib;CommonLoader.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../CommonLoader/CommonLoader/$(Platform)/$(Configuration)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>copy "$(TargetPath)" "D:\SteamLibrary\steamapps\common\SonicOrigins\build\main\projects\exec\d3d11.dll"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CodeLoader.h" />
     <ClInclude Include="ConfigLoader.h" />
     <ClInclude Include="CriLoader.h" />
+    <ClInclude Include="DataPackLoader.h" />
     <ClInclude Include="include\CommonLoader.h" />
     <ClInclude Include="include\detours.h" />
     <ClInclude Include="include\detver.h" />
@@ -117,6 +124,7 @@
     <ClCompile Include="CodeLoader.cpp" />
     <ClCompile Include="ConfigLoader.cpp" />
     <ClCompile Include="CriLoader.cpp" />
+    <ClCompile Include="DataPackLoader.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Loader.cpp" />
     <ClCompile Include="ModLoader.cpp" />

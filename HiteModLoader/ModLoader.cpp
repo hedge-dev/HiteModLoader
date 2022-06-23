@@ -43,7 +43,7 @@ void LoadMod(const std::string& filePath)
         if (includeDir.empty())
             continue;
 
-        ModIncludePaths.push_back(directoryPath + includeDir + "/raw/");
+        ModIncludePaths.push_back(directoryPath + includeDir + "/");
     }
 
     const std::string dllFilePath = modIni.GetString("Main", "DLLFile", std::string());
