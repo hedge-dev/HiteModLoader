@@ -10,5 +10,6 @@
     }
 
 extern bool ConsoleEnabled;
+extern Platform CurrentPlatform;
 
 extern void InitLoaders();

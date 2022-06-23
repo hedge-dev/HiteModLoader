@@ -57,6 +57,7 @@ struct Mod
 
 struct ModInfo
 {
+    int ModLoaderVersion = 1;
     std::vector<Mod*>* ModList;
     Mod* CurrentMod;
     Platform CurrentPlatform;

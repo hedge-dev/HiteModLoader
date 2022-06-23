@@ -5,7 +5,8 @@
 #include <INIReader.h>
 
 std::vector<std::string> ModIncludePaths;
-std::vector<std::wstring> ModCodePaths;
+std::vector<std::pair<Mod*, std::wstring>> ModCodePaths;
+std::vector<Mod*> Mods;
 
 void LoadMod(const std::string& filePath)
 {
@@ -46,10 +47,18 @@ void LoadMod(const std::string& filePath)
         ModIncludePaths.push_back(directoryPath + includeDir + "/");
     }
 
+    auto mod = new Mod();
+    auto modTitle = new std::string(title.c_str());
+    auto modPath = new std::string(directoryPath.c_str());
+    
+    mod->Name = modTitle->c_str();
+    mod->Path = modPath->c_str();
+    Mods.push_back(mod);
+
     const std::string dllFilePath = modIni.GetString("Main", "DLLFile", std::string());
 
     if (!dllFilePath.empty())
-        ModCodePaths.push_back(ConvertMultiByteToWideChar(directoryPath + dllFilePath));
+        ModCodePaths.push_back(std::pair<Mod*, std::wstring>(mod, ConvertMultiByteToWideChar(directoryPath + dllFilePath)));
 }
 
 void LoadModsDatabase(const std::string& filePath)
