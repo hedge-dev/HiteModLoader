@@ -5,6 +5,7 @@
 
 // Events
 std::vector<DllEvent*> FrameEvents;
+std::vector<DllEvent*> UpdateEvents;
 std::vector<DllEvent*> ExitEvents;
 
 void RaiseEvents(std::vector<DllEvent*> events)
@@ -61,6 +62,7 @@ void InitCodeLoader()
             auto initEvent = (DllInitEvent*)GetProcAddress(module, "Init");
             auto postInitEvent = (DllEvent*)GetProcAddress(module, "PostInit");
             auto onFrameEvent = (DllEvent*)GetProcAddress(module, "OnFrame");
+            auto onUpdateEvent = (DllEvent*)GetProcAddress(module, "OnUpdate");
             auto onExitEvent = (DllEvent*)GetProcAddress(module, "OnExit");
 
             if (initEvent)
@@ -72,8 +74,11 @@ void InitCodeLoader()
             if (onFrameEvent)
                 FrameEvents.push_back(onFrameEvent);
 
+            if (onUpdateEvent)
+                UpdateEvents.push_back(onUpdateEvent);
+
             if (onExitEvent)
-                FrameEvents.push_back(onExitEvent);
+                ExitEvents.push_back(onExitEvent);
         }
 
         for (auto& dllEvent : postInitEvents)

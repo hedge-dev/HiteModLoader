@@ -3,9 +3,11 @@
 extern bool SigValid;
 
 // HE
+extern void* SigRunCore();
 
 // RSDK
 extern void* SigEngine_LoadFile();
+extern void* SigEngine_HandleGameLoop();
 
 // Cri
 extern void* SigCrifsiowin_CreateFile();
