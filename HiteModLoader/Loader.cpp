@@ -28,13 +28,6 @@ HOOK(bool, __fastcall, SteamAPI_IsSteamRunning, PROC_ADDRESS("steam_api64.dll", 
     return true;
 }
 
-HOOK(void, __fastcall, SteamAPI_Shutdown, PROC_ADDRESS("steam_api64.dll", "SteamAPI_Shutdown"))
-{
-    LOG("Exiting...");
-    RaiseEvents(ExitEvents);
-    originalSteamAPI_Shutdown();
-}
-
 HOOK(void*, __fastcall, RunCore, SigRunCore(), void* a1)
 {
     void* result = originalRunCore(a1);
@@ -62,7 +55,6 @@ void InitLoaders()
     // Install hooks
     INSTALL_HOOK(SteamAPI_RestartAppIfNecessary);
     INSTALL_HOOK(SteamAPI_IsSteamRunning);
-    INSTALL_HOOK(SteamAPI_Shutdown);
     INSTALL_HOOK(RunCore);
     INSTALL_HOOK(Engine_HandleGameLoop);
 
