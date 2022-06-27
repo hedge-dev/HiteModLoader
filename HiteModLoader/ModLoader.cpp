@@ -64,7 +64,7 @@ void LoadMod(const std::string& filePath)
     const std::string saveFilePath = modIni.GetString("Main", "SaveFile", std::string());
 
     if (SaveFilePath.empty() && !saveFilePath.empty())
-        SaveFilePath = saveFilePath;
+        SaveFilePath = directoryPath + saveFilePath;
 }
 
 void LoadModsDatabase(const std::string& filePath)
