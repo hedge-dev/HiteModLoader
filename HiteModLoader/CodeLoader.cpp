@@ -4,8 +4,8 @@
 #include "Loader.h"
 
 // Events
-std::vector<DllEvent*> FrameEvents;
-std::vector<DllEvent*> UpdateEvents;
+std::vector<DllEvent*> RunCoreEvents;
+std::vector<DllEvent*> RSDKLoopEvents;
 std::vector<DllEvent*> ExitEvents;
 
 void RaiseEvents(std::vector<DllEvent*> events)
@@ -62,7 +62,7 @@ void InitCodeLoader()
             auto initEvent = (DllInitEvent*)GetProcAddress(module, "Init");
             auto postInitEvent = (DllEvent*)GetProcAddress(module, "PostInit");
             auto onFrameEvent = (DllEvent*)GetProcAddress(module, "OnFrame");
-            auto onUpdateEvent = (DllEvent*)GetProcAddress(module, "OnUpdate");
+            auto onRSDKFrameEvent = (DllEvent*)GetProcAddress(module, "OnRsdkFrame");
             auto onExitEvent = (DllEvent*)GetProcAddress(module, "OnExit");
 
             if (initEvent)
@@ -72,10 +72,10 @@ void InitCodeLoader()
                 postInitEvents.push_back(postInitEvent);
 
             if (onFrameEvent)
-                FrameEvents.push_back(onFrameEvent);
+                RunCoreEvents.push_back(onFrameEvent);
 
-            if (onUpdateEvent)
-                UpdateEvents.push_back(onUpdateEvent);
+            if (onRSDKFrameEvent)
+                RSDKLoopEvents.push_back(onRSDKFrameEvent);
 
             if (onExitEvent)
                 ExitEvents.push_back(onExitEvent);

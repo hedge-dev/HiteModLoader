@@ -32,7 +32,7 @@ HOOK(bool, __fastcall, SteamAPI_IsSteamRunning, PROC_ADDRESS("steam_api64.dll", 
 HOOK(void*, __fastcall, RunCore, SigRunCore(), void* a1)
 {
     void* result = originalRunCore(a1);
-    RaiseEvents(UpdateEvents);
+    RaiseEvents(RunCoreEvents);
     CommonLoader::CommonLoader::RaiseUpdates();
     return result;
 }
@@ -40,7 +40,7 @@ HOOK(void*, __fastcall, RunCore, SigRunCore(), void* a1)
 HOOK(void*, __fastcall, Engine_HandleGameLoop, SigEngine_HandleGameLoop(), void* a1)
 {
     void* result = originalEngine_HandleGameLoop(a1);
-    RaiseEvents(FrameEvents);
+    RaiseEvents(RSDKLoopEvents);
     return result;
 }
 

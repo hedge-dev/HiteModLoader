@@ -7,8 +7,8 @@ typedef void DllEvent();
 typedef void DllInitEvent(ModInfo*);
 
 // Events
-extern std::vector<DllEvent*> FrameEvents;
-extern std::vector<DllEvent*> UpdateEvents;
+extern std::vector<DllEvent*> RunCoreEvents;
+extern std::vector<DllEvent*> RSDKLoopEvents;
 extern std::vector<DllEvent*> ExitEvents;
 
 extern void RaiseEvents(std::vector<DllEvent*> events);
