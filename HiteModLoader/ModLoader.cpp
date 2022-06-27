@@ -2,6 +2,7 @@
 #include "ModLoader.h"
 #include "Loader.h"
 #include "ConfigLoader.h"
+#include "SaveRedirection.h"
 #include <INIReader.h>
 
 std::vector<std::string> ModIncludePaths;
@@ -59,6 +60,11 @@ void LoadMod(const std::string& filePath)
 
     if (!dllFilePath.empty())
         ModCodePaths.push_back(std::pair<Mod*, std::wstring>(mod, ConvertMultiByteToWideChar(directoryPath + dllFilePath)));
+
+    const std::string saveFilePath = modIni.GetString("Main", "SaveFile", std::string());
+
+    if (SaveFilePath.empty() && !saveFilePath.empty())
+        SaveFilePath = saveFilePath;
 }
 
 void LoadModsDatabase(const std::string& filePath)

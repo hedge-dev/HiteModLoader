@@ -118,6 +118,7 @@
     <ClInclude Include="ModLoader.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="SaveRedirection.h" />
     <ClInclude Include="SigScan.h" />
   </ItemGroup>
   <ItemGroup>
@@ -132,6 +133,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="SaveRedirection.cpp" />
     <ClCompile Include="SigScan.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,9 @@
 #include <consoleapi.h>
 
 std::string ModsDbIniPath;
+std::string SaveFileFallback;
+std::string SaveFileOverride;
+bool EnableSaveFileRedirection;
 
 void InitConfigLoader()
 {
@@ -13,7 +16,14 @@ void InitConfigLoader()
     std::string logType = config.GetString("CPKREDIR", "LogType", "");
     std::string logFile = config.GetString("CPKREDIR", "LogFile", "cpkredir.log");
     ModsDbIniPath = config.GetString("CPKREDIR", "ModsDbIni", "");
+    SaveFileFallback = config.GetString("CPKREDIR", "SaveFileFallback", "");
+    SaveFileOverride = config.GetString("CPKREDIR", "SaveFileOverride", "");
+    EnableSaveFileRedirection = config.GetBoolean("CPKREDIR", "EnableSaveFileRedirection", false);
     bool useFileLogging = false;
+
+    // TODO: Fix HMM from using cpkredir.sav
+    if (SaveFileFallback.find("cpkredir.sav") != std::string::npos)
+        SaveFileFallback = "savedata";
 
     if (!logType.empty())
     {

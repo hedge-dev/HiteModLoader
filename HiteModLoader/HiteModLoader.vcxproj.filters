@@ -20,6 +20,7 @@
     <ClCompile Include="DataPackLoader.cpp">
       <Filter>Loaders</Filter>
     </ClCompile>
+    <ClCompile Include="SaveRedirection.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -60,6 +61,7 @@
     <ClInclude Include="DataPackLoader.h">
       <Filter>Loaders</Filter>
     </ClInclude>
+    <ClInclude Include="SaveRedirection.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="HiteModLoader.rc" />

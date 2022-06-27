@@ -7,6 +7,7 @@
 #include "CodeLoader.h"
 #include "ModLoader.h"
 #include "DataPackLoader.h"
+#include "SaveRedirection.h"
 
 bool ConsoleEnabled;
 Platform CurrentPlatform = Platform_Epic; // Default to Epic
@@ -64,6 +65,8 @@ void InitLoaders()
     InitModLoader();
     InitDataPackLoader();
     InitCodeLoader();
+    if (EnableSaveFileRedirection)
+        InitSaveRedirection();
 
     // Init CommonLoader
     LOG("Loading Codes...");
