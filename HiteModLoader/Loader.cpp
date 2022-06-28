@@ -8,6 +8,7 @@
 #include "ModLoader.h"
 #include "DataPackLoader.h"
 #include "SaveRedirection.h"
+#include "LoggingHandler.h"
 
 bool ConsoleEnabled;
 Platform CurrentPlatform = Platform_Epic; // Default to Epic
@@ -18,14 +19,12 @@ HOOK(bool, __fastcall, SteamAPI_RestartAppIfNecessary, PROC_ADDRESS("steam_api64
     std::ofstream ofs("steam_appid.txt");
     ofs << appid;
     ofs.close();
-    CurrentPlatform = Platform_Steam;
     return false;
 }
 
 HOOK(bool, __fastcall, SteamAPI_IsSteamRunning, PROC_ADDRESS("steam_api64.dll", "SteamAPI_IsSteamRunning"))
 {
     originalSteamAPI_IsSteamRunning();
-    CurrentPlatform = Platform_Steam;
     return true;
 }
 
@@ -52,12 +51,16 @@ void InitLoaders()
         MessageBoxW(nullptr, L"Failed to install mod loader (possibly unsupported game version)", L"Hite Mod Loader", MB_ICONERROR);
         return;
     }
-    
+   
     // Install hooks
     INSTALL_HOOK(SteamAPI_RestartAppIfNecessary);
     INSTALL_HOOK(SteamAPI_IsSteamRunning);
     INSTALL_HOOK(RunCore);
     INSTALL_HOOK(Engine_HandleGameLoop);
+
+    // Detect Steam
+    if (PROC_ADDRESS("steam_api64.dll", "SteamAPI_RestartAppIfNecessary"))
+        CurrentPlatform = Platform_Steam;
 
     // Init loaders
     InitConfigLoader();
@@ -65,8 +68,11 @@ void InitLoaders()
     InitModLoader();
     InitDataPackLoader();
     InitCodeLoader();
+
+    // Handlers
     if (EnableSaveFileRedirection)
         InitSaveRedirection();
+    InitLoggingHandler();
 
     // Init CommonLoader
     LOG("Loading Codes...");

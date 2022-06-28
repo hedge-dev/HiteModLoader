@@ -20,7 +20,12 @@
     <ClCompile Include="DataPackLoader.cpp">
       <Filter>Loaders</Filter>
     </ClCompile>
-    <ClCompile Include="SaveRedirection.cpp" />
+    <ClCompile Include="LoggingHandler.cpp">
+      <Filter>Handlers</Filter>
+    </ClCompile>
+    <ClCompile Include="SaveRedirection.cpp">
+      <Filter>Handlers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -61,7 +66,12 @@
     <ClInclude Include="DataPackLoader.h">
       <Filter>Loaders</Filter>
     </ClInclude>
-    <ClInclude Include="SaveRedirection.h" />
+    <ClInclude Include="LoggingHandler.h">
+      <Filter>Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveRedirection.h">
+      <Filter>Handlers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="HiteModLoader.rc" />
@@ -72,6 +82,9 @@
     </Filter>
     <Filter Include="Loaders">
       <UniqueIdentifier>{38e8079d-8910-4d34-b71e-2c136d876303}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Handlers">
+      <UniqueIdentifier>{194913c4-2372-4090-b6e4-6603d9010188}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

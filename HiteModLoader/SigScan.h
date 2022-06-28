@@ -13,3 +13,6 @@ extern void* SigEngine_HandleGameLoop();
 extern void* SigCrifsiowin_CreateFile();
 extern void* SigCriFsIoWin_Exists();
 extern void* SigCriErr_Notify();
+
+// Logging
+extern void* SigPrint1();

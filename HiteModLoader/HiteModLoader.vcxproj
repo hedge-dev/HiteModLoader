@@ -115,6 +115,7 @@
     <ClInclude Include="include\HiteModLoader.h" />
     <ClInclude Include="include\syelog.h" />
     <ClInclude Include="Loader.h" />
+    <ClInclude Include="LoggingHandler.h" />
     <ClInclude Include="ModLoader.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="resource.h" />
@@ -128,6 +129,7 @@
     <ClCompile Include="DataPackLoader.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Loader.cpp" />
+    <ClCompile Include="LoggingHandler.cpp" />
     <ClCompile Include="ModLoader.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

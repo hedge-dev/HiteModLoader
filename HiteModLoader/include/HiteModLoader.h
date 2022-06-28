@@ -41,6 +41,12 @@ inline std::wstring ConvertMultiByteToWideChar(const std::string& value)
     return std::wstring(wideChar);
 }
 
+inline size_t ReadDataPointer(size_t instructionPtr, size_t offset, size_t size)
+{
+    auto ptr = *(int*)(instructionPtr + offset);
+    return ptr + size + instructionPtr;
+}
+
 enum Platform
 {
     Platform_All    = 0,
