@@ -16,3 +16,7 @@ extern void* SigCriErr_Notify();
 
 // Logging
 extern void* SigPrint1();
+
+// Data
+extern void* SigDataHapticsv3();
+extern void* SigDataHapticsv4();

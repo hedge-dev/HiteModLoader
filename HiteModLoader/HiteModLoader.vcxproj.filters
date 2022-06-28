@@ -26,6 +26,9 @@
     <ClCompile Include="SaveRedirection.cpp">
       <Filter>Handlers</Filter>
     </ClCompile>
+    <ClCompile Include="RSDKPatches.cpp">
+      <Filter>Handlers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -70,6 +73,9 @@
       <Filter>Handlers</Filter>
     </ClInclude>
     <ClInclude Include="SaveRedirection.h">
+      <Filter>Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="RSDKPatches.h">
       <Filter>Handlers</Filter>
     </ClInclude>
   </ItemGroup>

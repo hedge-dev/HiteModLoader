@@ -55,6 +55,15 @@ static size_t PROCESS_ENTRY = (size_t)DetourGetEntryPoint((HMODULE)BASE_ADDRESS)
 		VirtualProtect((void*)location, sizeof(data), oldProtect, NULL); \
 	}
 
+#define WRITE_MEMORY_ARRAY(location, arr) \
+	{ \
+		const char data[] = arr; \
+		DWORD oldProtect; \
+		VirtualProtect((void*)location, sizeof(data), PAGE_EXECUTE_READWRITE, &oldProtect); \
+		memcpy((void*)location, data, sizeof(data)); \
+		VirtualProtect((void*)location, sizeof(data), oldProtect, NULL); \
+	}
+
 #ifdef BASE_ADDRESS
 const HMODULE MODULE_HANDLE = GetModuleHandle(nullptr);
 

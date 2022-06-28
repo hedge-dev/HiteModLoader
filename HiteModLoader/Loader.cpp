@@ -9,6 +9,7 @@
 #include "DataPackLoader.h"
 #include "SaveRedirection.h"
 #include "LoggingHandler.h"
+#include "RSDKPatches.h"
 
 bool ConsoleEnabled;
 Platform CurrentPlatform = Platform_Epic; // Default to Epic
@@ -73,6 +74,7 @@ void InitLoaders()
     if (EnableSaveFileRedirection)
         InitSaveRedirection();
     InitLoggingHandler();
+    InitRSDKPatches();
 
     // Init CommonLoader
     LOG("Loading Codes...");
