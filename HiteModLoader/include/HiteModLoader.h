@@ -4,7 +4,7 @@
 #include <vector>
 #include <Shlwapi.h>
 
-#define VERSION "1.0.1.0"
+#define VERSION "1.0.2.0"
 #define PATH_LIMIT 0x400
 
 inline bool FileExists(const char* fileName)
