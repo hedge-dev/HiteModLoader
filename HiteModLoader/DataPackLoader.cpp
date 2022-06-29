@@ -57,9 +57,23 @@ HOOK(FILE*, __fastcall, Engine_LoadFile, SigEngine_LoadFile(), FileInfo* info, c
 	return originalEngine_LoadFile(info, filePath, openMode);
 }
 
+HOOK(int, __fastcall, Engine_CloseFile, SigEngine_CloseFile(), FileInfo* info)
+{
+	info->externalFile = false;
+	return originalEngine_CloseFile(info);
+}
+
+HOOK(int, __fastcall, Engine_CloseFile2, SigEngine_CloseFile2(), FileInfo* info)
+{
+	int result = originalEngine_CloseFile2(info);
+	memset(info, 0, sizeof(FileInfo));
+	return result;
+}
 
 void InitDataPackLoader()
 {
 	LOG("Setting up DataPackLoader...");
 	INSTALL_HOOK(Engine_LoadFile);
+	INSTALL_HOOK(Engine_CloseFile);
+	INSTALL_HOOK(Engine_CloseFile2);
 }

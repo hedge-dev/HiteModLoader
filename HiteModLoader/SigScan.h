@@ -7,6 +7,8 @@ extern void* SigRunCore();
 
 // RSDK
 extern void* SigEngine_LoadFile();
+extern void* SigEngine_CloseFile();
+extern void* SigEngine_CloseFile2();
 extern void* SigEngine_HandleGameLoop();
 
 // Cri
