@@ -2,6 +2,7 @@
 #include "pch.h"
 #include "Loader.h"
 #include "Helpers.h"
+#include "SigScan.h"
 
 #pragma comment(linker, "/EXPORT:D3D11CreateDevice=C:\\Windows\\System32\\d3d11.D3D11CreateDevice")
 #pragma comment(linker, "/EXPORT:D3D11CoreCreateDevice=C:\\Windows\\System32\\d3d11.D3D11CoreCreateDevice")
@@ -9,14 +10,14 @@
 
 static bool Loaded = false;
 
-HOOK(void, __fastcall, GetStartupInfoWHook, PROC_ADDRESS("Kernel32.dll", "GetStartupInfoW"), void* lpStartupInfo)
+HOOK(void, __fastcall, Main, SigMain())
 {
     if (!Loaded)
     {
         Loaded = true;
         InitLoaders();
     }
-    originalGetStartupInfoWHook(lpStartupInfo);
+    originalMain();
 }
 
 BOOL APIENTRY DllMain( HMODULE hModule,
@@ -27,7 +28,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH:
-        INSTALL_HOOK(GetStartupInfoWHook);
+        INSTALL_HOOK(Main);
     case DLL_THREAD_ATTACH:
     case DLL_THREAD_DETACH:
     case DLL_PROCESS_DETACH:
