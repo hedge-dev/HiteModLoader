@@ -35,7 +35,7 @@ void InitConfigLoader()
     {
         AllocConsole();
         freopen("CONOUT$", "w", stdout);
-        LOG("Starting HiteModLoader %s...", VERSION);
+        LOG("Starting HiteModLoader %s...", ML_VERSION);
     }
 
     if (useFileLogging)
