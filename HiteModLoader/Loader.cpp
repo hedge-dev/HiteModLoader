@@ -13,6 +13,7 @@
 
 bool ConsoleEnabled;
 Platform CurrentPlatform = Platform_Epic; // Default to Epic
+ModLoader ModLoaderData;
 
 HOOK(bool, __fastcall, SteamAPI_RestartAppIfNecessary, PROC_ADDRESS("steam_api64.dll", "SteamAPI_RestartAppIfNecessary"), uint32_t appid)
 {
@@ -44,6 +45,14 @@ HOOK(void*, __fastcall, Engine_HandleGameLoop, SigEngine_HandleGameLoop(), void*
     return result;
 }
 
+void AddIncludePath(const char* path, bool first)
+{
+    if (first)
+        ModIncludePaths.insert(ModIncludePaths.begin(), std::string(path));
+    else
+        ModIncludePaths.push_back(std::string(path));
+}
+
 void InitLoaders()
 {
     // Check signatures
@@ -68,6 +77,9 @@ void InitLoaders()
     InitCriLoader();
     InitModLoader();
     InitDataPackLoader();
+    
+    ModLoaderData.AddInclude = AddIncludePath;
+
     InitCodeLoader();
 
     // Handlers
@@ -80,5 +92,6 @@ void InitLoaders()
     LOG("Loading Codes...");
     CommonLoader::CommonLoader::InitializeAssemblyLoader((GetDirectoryPath(ModsDbIniPath) + "Codes.dll").c_str());
     CommonLoader::CommonLoader::RaiseInitializers();
+
     LOG("Initialisation Complete!");
 }

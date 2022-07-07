@@ -30,6 +30,7 @@ void InitCodeLoader()
         auto ModsInfo = new ModInfo();
         ModsInfo->ModList = &Mods;
         ModsInfo->CurrentPlatform = CurrentPlatform;
+        ModsInfo->ModLoader = &ModLoaderData;
 
         for (auto& modCode : ModCodePaths)
         {

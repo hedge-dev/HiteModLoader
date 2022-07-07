@@ -4,8 +4,36 @@
 #include <vector>
 #include <Shlwapi.h>
 
-#define ML_VERSION "1.1.0.0"
+#define ML_VERSION "1.2.0.0"
 #define PATH_LIMIT 0x400
+
+enum Platform
+{
+    Platform_All    = 0,
+    Platform_Steam  = 1,
+    Platform_Epic   = 2,
+    Platform_Switch = 3
+};
+
+struct FileInfo
+{
+    unsigned int fileSize;
+    int externalFile;
+    FILE* file;
+    void* fileData;
+    int readPos;
+    int fileOffset;
+    bool useFileBuffer;
+    bool encrypted;
+    char eNybbleSwap;
+    char decryptionKeyA[16];
+    char decryptionKeyB[16];
+    unsigned __int8 eStringPosA;
+    unsigned __int8 eStringPosB;
+    char eStringNo;
+    char padding1;
+    char padding2;
+};
 
 inline bool FileExists(const char* fileName)
 {
@@ -47,23 +75,25 @@ inline size_t ReadDataPointer(size_t instructionPtr, size_t offset, size_t size)
     return ptr + size + instructionPtr;
 }
 
-enum Platform
-{
-    Platform_All    = 0,
-    Platform_Steam  = 1,
-    Platform_Epic   = 2,
-    Platform_Switch = 3
-};
-
 struct Mod
 {
     const char* Name;
     const char* Path;
 };
 
+struct ModLoader
+{
+    int MajorVersion = 1;
+    int MinorVersion = 0;
+
+    // 1.2.0.0 (1.0)
+    void(__fastcall* GetRedirectedPath)(const char* path, char* out);
+    void(__fastcall* AddInclude)(const char* path, bool first); // Without a trailing slash
+};
+
 struct ModInfo
 {
-    int ModLoaderVersion = 1;
+    ModLoader* ModLoader;
     std::vector<Mod*>* ModList;
     Mod* CurrentMod;
     Platform CurrentPlatform;

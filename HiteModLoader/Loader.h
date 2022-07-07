@@ -11,5 +11,6 @@
 
 extern bool ConsoleEnabled;
 extern Platform CurrentPlatform;
+extern ModLoader ModLoaderData;
 
 extern void InitLoaders();

@@ -4,28 +4,24 @@
 #include "SigScan.h"
 #include "Helpers.h"
 
-struct FileInfo
-{
-	unsigned int fileSize;
-	int externalFile;
-	FILE* file;
-	void* fileData;
-	int readPos;
-	int fileOffset;
-	bool useFileBuffer;
-	bool encrypted;
-	char eNybbleSwap;
-	char decryptionKeyA[16];
-	char decryptionKeyB[16];
-	unsigned __int8 eStringPosA;
-	unsigned __int8 eStringPosB;
-	char eStringNo;
-	char padding1;
-	char padding2;
-};
-
 std::string DataPackName = "";
 bool ForceScripts = false;
+
+void GetRedirectedPath(const char* filePath, char* out)
+{
+	if (DataPackName.empty())
+		return;
+
+	for (auto& value : ModIncludePaths)
+	{
+		std::string path = value + DataPackName + "/" + filePath;
+		if (GetFileAttributesA(path.c_str()) != -1)
+		{
+			strcpy(out, path.c_str());
+			return;
+		}
+	}
+}
 
 HOOK(FILE*, __fastcall, Engine_LoadFile, SigEngine_LoadFile(), FileInfo* info, const char* filePath, int openMode)
 {
@@ -92,4 +88,6 @@ void InitDataPackLoader()
 	INSTALL_HOOK(Engine_LoadFile);
 	INSTALL_HOOK(Engine_CloseFile);
 	INSTALL_HOOK(Engine_CloseFile2);
+
+	ModLoaderData.GetRedirectedPath = GetRedirectedPath;
 }
