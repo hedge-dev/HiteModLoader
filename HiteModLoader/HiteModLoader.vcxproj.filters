@@ -45,7 +45,6 @@
     <ClInclude Include="include\INIReader.h">
       <Filter>Includes</Filter>
     </ClInclude>
-    <ClInclude Include="include\Helpers.h" />
     <ClInclude Include="include\syelog.h">
       <Filter>Includes</Filter>
     </ClInclude>
@@ -77,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="RSDKPatches.h">
       <Filter>Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Helpers.h">
+      <Filter>Includes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -48,13 +48,13 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(SolutionDir)CommonLoader\CommonLoader\;$(ProjectDir)include;$(IncludePath)</IncludePath>
     <SourcePath>$(SourcePath)</SourcePath>
-    <LibraryPath>$(ProjectDir)lib\x64;$(SolutionDir)$(IntDir);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)lib;$(SolutionDir)$(IntDir);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(SolutionDir)CommonLoader\CommonLoader\;$(ProjectDir)include;$(IncludePath)</IncludePath>
     <SourcePath>$(SourcePath)</SourcePath>
-    <LibraryPath>$(ProjectDir)lib\x64;$(SolutionDir)$(IntDir);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)lib;$(SolutionDir)$(IntDir);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
