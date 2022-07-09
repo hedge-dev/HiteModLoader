@@ -15,6 +15,8 @@ bool ConsoleEnabled;
 Platform CurrentPlatform = Platform_Epic; // Default to Epic
 ModLoader ModLoaderData;
 
+bool ReturnToTitle = false;
+
 HOOK(bool, __fastcall, SteamAPI_RestartAppIfNecessary, PROC_ADDRESS("steam_api64.dll", "SteamAPI_RestartAppIfNecessary"), uint32_t appid)
 {
     originalSteamAPI_RestartAppIfNecessary(appid);
@@ -40,6 +42,18 @@ HOOK(void*, __fastcall, RunCore, SigRunCore(), void* a1)
 
 HOOK(void*, __fastcall, Engine_HandleGameLoop, SigEngine_HandleGameLoop(), void* a1)
 {
+    if (ReturnToTitle)
+    {
+        int args[3]{ NOTIFY_BACK_TO_MAINMENU, 1, 0 };
+        auto NotifyCallback = (void(__fastcall*)(int*))(SigNotifyCallback());
+        NotifyCallback(args);
+
+        // Old code
+        //auto gameState = ReadDataPointer((size_t)SigEngine_HandleGameLoop(), 0x23, 0x07) + 0x20;
+        //*(char*)gameState = 8;
+        ReturnToTitle = false;
+    }
+
     void* result = originalEngine_HandleGameLoop(a1);
     RaiseEvents(RSDKLoopEvents);
     return result;
