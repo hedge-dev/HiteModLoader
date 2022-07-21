@@ -67,6 +67,23 @@ void AddIncludePath(const char* path, bool first)
         ModIncludePaths.push_back(std::string(path));
 }
 
+int GetIncludePaths(const char** paths, size_t count)
+{
+    if (!paths)
+        return ModIncludePaths.size();
+
+    int index = 0;
+    for (auto& value : ModIncludePaths)
+    {
+        if (index < count)
+            paths[index] = value.c_str();
+        else
+            return count;
+        index++;
+    }
+    return index;
+}
+
 void InitLoaders()
 {
     // Check signatures
@@ -93,6 +110,7 @@ void InitLoaders()
     InitDataPackLoader();
     
     ModLoaderData.AddInclude = AddIncludePath;
+    ModLoaderData.GetIncludePaths = GetIncludePaths;
 
     InitCodeLoader();
 

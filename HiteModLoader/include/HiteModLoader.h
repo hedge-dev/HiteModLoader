@@ -84,11 +84,13 @@ struct Mod
 struct ModLoader
 {
     int MajorVersion = 1;
-    int MinorVersion = 0;
+    int MinorVersion = 1;
 
     // 1.2.0.0 (1.0)
     void(__fastcall* GetRedirectedPath)(const char* path, char* out);
     void(__fastcall* AddInclude)(const char* path, bool first); // Without a trailing slash
+    // 1.3.0.0 (1.1)
+    int(__fastcall* GetIncludePaths)(const char** paths, size_t count);
 };
 
 struct ModInfo
