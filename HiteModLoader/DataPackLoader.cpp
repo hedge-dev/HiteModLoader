@@ -23,6 +23,11 @@ void GetRedirectedPath(const char* filePath, char* out)
 	}
 }
 
+const char* GetDataPackName()
+{
+	return DataPackName.c_str();
+}
+
 HOOK(FILE*, __fastcall, Engine_LoadFile, SigEngine_LoadFile(), FileInfo* info, const char* filePath, int openMode)
 {
 	std::string filePath2 = filePath;
@@ -90,4 +95,5 @@ void InitDataPackLoader()
 	INSTALL_HOOK(Engine_CloseFile2);
 
 	ModLoaderData.GetRedirectedPath = GetRedirectedPath;
+	ModLoaderData.GetDataPackName = GetDataPackName;
 }

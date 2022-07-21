@@ -91,6 +91,7 @@ struct ModLoader
     void(__fastcall* AddInclude)(const char* path, bool first); // Without a trailing slash
     // 1.3.0.0 (1.1)
     int(__fastcall* GetIncludePaths)(const char** paths, size_t count);
+    const char*(__fastcall* GetDataPackName)();
 };
 
 struct ModInfo
