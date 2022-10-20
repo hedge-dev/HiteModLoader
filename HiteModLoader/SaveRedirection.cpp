@@ -59,6 +59,34 @@ HOOK(HANDLE, __fastcall, KernelBaseCreateFileA, PROC_ADDRESS("Kernel32.dll", "Cr
     return originalKernelBaseCreateFileA(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
 }
 
+// NOTE: If saves are still broken, its prob this hook below
+HOOK(DWORD, __fastcall, Kernel32GetFileAttributesA, PROC_ADDRESS("Kernel32.dll", "GetFileAttributesA"), LPCSTR lpFileName)
+{
+    std::string filePath = lpFileName;
+
+    if (filePath.find("data.dat") != std::string::npos)
+    {
+        size_t splitPos = filePath.substr(0, filePath.length() - 9).find_last_of('/');
+        if (splitPos == std::string::npos)
+        {
+            LOG("[SaveRedirection] Substring failed! filePath = \"%s\"", filePath.c_str());
+            return originalKernel32GetFileAttributesA(lpFileName);
+        }
+        std::string relativePath = filePath.substr(splitPos + 1);
+        std::string redirectedPath = SaveFilePath + "/" + relativePath;
+
+        if (originalKernel32GetFileAttributesA(redirectedPath.c_str()) == -1)
+        {
+            LOG("[SaveRedirection] No redirected save found, using main save for \"%s\"", relativePath.c_str());
+        }
+        else
+        {
+            LOG("[SaveRedirection] Redirecting \"%s\" to \"%s\"", relativePath.c_str(), redirectedPath.c_str());
+            lpFileName = redirectedPath.c_str();
+        }
+    }
+    return originalKernel32GetFileAttributesA(lpFileName);
+}
 
 void InitSaveRedirection()
 {
@@ -73,4 +101,5 @@ void InitSaveRedirection()
     LOG("[SaveRedirection] SaveFilePath = \"%s\"", SaveFilePath.c_str());
 
     INSTALL_HOOK(KernelBaseCreateFileA);
+    INSTALL_HOOK(Kernel32GetFileAttributesA);
 }
