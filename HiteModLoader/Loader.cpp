@@ -122,7 +122,7 @@ void InitLoaders()
 
     // Init CommonLoader
     LOG("Loading Codes...");
-    CommonLoader::CommonLoader::InitializeAssemblyLoader((GetDirectoryPath(ModsDbIniPath) + "Codes.dll").c_str());
+    CommonLoader::CommonLoader::InitializeAssemblyLoader((GetDirectoryPath(ModsDbIniPath) + "/Codes.dll").c_str());
     CommonLoader::CommonLoader::RaiseInitializers();
 
     LOG("Initialisation Complete!");

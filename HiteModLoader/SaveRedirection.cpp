@@ -36,14 +36,26 @@ HOOK(HANDLE, __fastcall, KernelBaseCreateFileA, PROC_ADDRESS("Kernel32.dll", "Cr
             // Create directories
             auto dir = GetDirectoryPath(redirectedPath);
             if (!DirExists(dir))
-                std::filesystem::create_directories(dir);
-
-            // Ensure dir exists
-            if (DirExists(dir))
-                lpFileName = redirectedPath.c_str();
+            {
+                if (CreateDirectoryRecursively(dir))
+                {
+                    lpFileName = redirectedPath.c_str();
+                }
+                else
+                {
+                    std::string error = std::string("Failed to create directories") +
+                        "\n\nThe game will now save to the normal location." +
+                        "\nCode: " + std::to_string(GetLastError()) +
+                        "\nPath: " + std::string(dir.begin(), dir.end());
+                    LOG("[SaveRedirection] Save redirection error: %s", error.c_str());
+                    MessageBoxA(NULL, error.c_str(), "Save Redirection Error!", MB_ICONERROR);
+                }
+            }
             else
-                MessageBoxA(NULL, "Failed to handle save redirection!\n\nClose this process now if you do not want your main save file overwritten!!!"
-                    , "Save Redirection Error!", MB_ICONERROR);
+            {
+                lpFileName = redirectedPath.c_str();
+            }
+
         } else if (dwDesiredAccess & GENERIC_READ)
         {
             if (GetFileAttributesA(redirectedPath.c_str()) == -1)
@@ -55,6 +67,8 @@ HOOK(HANDLE, __fastcall, KernelBaseCreateFileA, PROC_ADDRESS("Kernel32.dll", "Cr
                 lpFileName = redirectedPath.c_str();
             }
         }
+        // I forgot to keep the string in scope
+        return originalKernelBaseCreateFileA(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
     }
     return originalKernelBaseCreateFileA(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
 }

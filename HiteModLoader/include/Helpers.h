@@ -70,3 +70,5 @@ const HMODULE MODULE_HANDLE = GetModuleHandle(nullptr);
 #define ASLR(address) \
     ((size_t)MODULE_HANDLE + (size_t)address - (size_t)BASE_ADDRESS)
 #endif
+
+bool CreateDirectoryRecursively(const std::string& directory);

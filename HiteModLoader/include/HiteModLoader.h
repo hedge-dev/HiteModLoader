@@ -4,7 +4,7 @@
 #include <vector>
 #include <Shlwapi.h>
 
-#define ML_VERSION "1.2.0.0"
+#define ML_VERSION "1.4.0.0"
 #define PATH_LIMIT 0x400
 
 enum Platform
@@ -56,7 +56,7 @@ inline std::string GetDirectoryPath(const std::string& path)
 
     const size_t index = path.find_last_of("\\/");
     if (index != std::string::npos)
-        directoryPath = path.substr(0, index + 1);
+        directoryPath = path.substr(0, index);
 
     return directoryPath;
 }

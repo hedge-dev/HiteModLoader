@@ -29,6 +29,7 @@
     <ClCompile Include="RSDKPatches.cpp">
       <Filter>Handlers</Filter>
     </ClCompile>
+    <ClCompile Include="Helpers.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

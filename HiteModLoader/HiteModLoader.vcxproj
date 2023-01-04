@@ -129,6 +129,7 @@
     <ClCompile Include="CriLoader.cpp" />
     <ClCompile Include="DataPackLoader.cpp" />
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="Helpers.cpp" />
     <ClCompile Include="Loader.cpp" />
     <ClCompile Include="LoggingHandler.cpp" />
     <ClCompile Include="ModLoader.cpp" />

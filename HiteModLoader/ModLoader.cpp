@@ -45,7 +45,7 @@ void LoadMod(const std::string& filePath)
         if (includeDir.empty())
             continue;
 
-        ModIncludePaths.push_back(directoryPath + includeDir + "/");
+        ModIncludePaths.push_back(directoryPath + "/" + includeDir + "/");
     }
 
     auto mod = new Mod();
@@ -59,12 +59,12 @@ void LoadMod(const std::string& filePath)
     const std::string dllFilePath = modIni.GetString("Main", "DLLFile", std::string());
 
     if (!dllFilePath.empty())
-        ModCodePaths.push_back(std::pair<Mod*, std::wstring>(mod, ConvertMultiByteToWideChar(directoryPath + dllFilePath)));
+        ModCodePaths.push_back(std::pair<Mod*, std::wstring>(mod, ConvertMultiByteToWideChar(directoryPath + "/" + dllFilePath)));
 
     const std::string saveFilePath = modIni.GetString("Main", "SaveFile", std::string());
 
     if (SaveFilePath.empty() && !saveFilePath.empty())
-        SaveFilePath = directoryPath + saveFilePath;
+        SaveFilePath = directoryPath + "\\" + saveFilePath;
 }
 
 void LoadModsDatabase(const std::string& filePath)
