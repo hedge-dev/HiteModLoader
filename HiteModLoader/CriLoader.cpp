@@ -39,8 +39,7 @@ HOOK(CriError, __fastcall, criFsIoWin_Exists, SigCriFsIoWin_Exists(), CriChar8* 
     DWORD attributes = -1;
     for (auto& value : ModIncludePaths)
     {
-        string filePath = value;
-        filePath += PathSubString(path);
+        string filePath = value + "raw/" + PathSubString(path);
         attributes = GetFileAttributesA(filePath.c_str());
         if (attributes != -1)
         {

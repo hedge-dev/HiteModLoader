@@ -36,7 +36,7 @@ HOOK(void*, __fastcall, RunCore, SigRunCore(), void* a1)
 {
     void* result = originalRunCore(a1);
     RaiseEvents(RunCoreEvents);
-    CommonLoader::CommonLoader::RaiseUpdates();
+    CommonLoader::RaiseUpdates();
     return result;
 }
 
@@ -86,6 +86,7 @@ int GetIncludePaths(const char** paths, size_t count)
 
 void InitLoaders()
 {
+    CommonLoader::Init();
     // Check signatures
     if (!SigValid)
     {
@@ -122,8 +123,8 @@ void InitLoaders()
 
     // Init CommonLoader
     LOG("Loading Codes...");
-    CommonLoader::CommonLoader::InitializeAssemblyLoader((GetDirectoryPath(ModsDbIniPath) + "/Codes.dll").c_str());
-    CommonLoader::CommonLoader::RaiseInitializers();
+    CommonLoader::LoadAssembly((GetDirectoryPath(ModsDbIniPath) + "/Codes.dll").c_str());
+    CommonLoader::RaiseInitializers();
 
     LOG("Initialisation Complete!");
 }
