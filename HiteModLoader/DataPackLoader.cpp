@@ -52,19 +52,16 @@ HOOK(FILE*, __fastcall, Engine_LoadFile, SigEngine_LoadFile(), FileInfo* info, c
             }
         }
 
-        // Check if scripts should be forced
-        ForceScripts = ScriptsPath != "";
+        ForceScripts = false;
 
-        if (!ForceScripts)
+        // Check if mods have scripts
+        for (auto& value : ModIncludePaths)
         {
-            for (auto &value : ModIncludePaths)
+            std::string path = value + DataPackName + "/Data/Scripts/";
+            if (GetFileAttributesA(path.c_str()) != -1)
             {
-                std::string path = value + DataPackName + "/Data/Scripts/";
-                if (GetFileAttributesA(path.c_str()) != -1)
-                {
-                    ForceScripts = true;
-                    break;
-                }
+                ForceScripts = true;
+                break;
             }
         }
     }
