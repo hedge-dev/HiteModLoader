@@ -4,7 +4,7 @@
 #include <vector>
 #include <Shlwapi.h>
 
-#define ML_VERSION "1.4.1.0"
+#define ML_VERSION "1.4.2.0"
 #define PATH_LIMIT 0x400
 
 enum Platform
