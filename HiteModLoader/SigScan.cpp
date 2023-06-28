@@ -1,60 +1,29 @@
 #include "pch.h"
 #include "SigScan.h"
+#include <SigScanner.h>
 #include <Psapi.h>
 
 bool SigValid = true;
 
-MODULEINFO moduleInfo;
 
-const MODULEINFO& getModuleInfo()
+class SignatureScanner
 {
-    if (moduleInfo.SizeOfImage)
-        return moduleInfo;
-
-    ZeroMemory(&moduleInfo, sizeof(MODULEINFO));
-    GetModuleInformation(GetCurrentProcess(), GetModuleHandle(nullptr), &moduleInfo, sizeof(MODULEINFO));
-
-    return moduleInfo;
-}
-
-void* sigScan(const char* signature, const char* mask)
-{
-    const MODULEINFO& moduleInfo = getModuleInfo();
-    const size_t length = strlen(mask);
-
-    for (size_t i = 0; i < moduleInfo.SizeOfImage; i++)
+public:
+    static bool MemoryCompare(const char* data, const char* sig, const char* mask)
     {
-        char* memory = (char*)moduleInfo.lpBaseOfDll + i;
-
-        size_t j;
-        for (j = 0; j < length; j++)
-            if (mask[j] != '?' && signature[j] != memory[j])
-                break;
-
-        if (j == length)
-            return memory;
+        for (; *mask; ++mask, ++data, ++sig)
+            if (*mask == 'x' && *data != *sig)
+                return false;
+        return (*mask == NULL);
     }
 
-    return nullptr;
-}
-
-#define SIG_SCAN(x, ...) \
-    void* x##Addr; \
-    void* x() \
-    { \
-        static const char* x##Data[] = { __VA_ARGS__ }; \
-        if (!x##Addr) \
-        { \
-            for (int i = 0; i < _countof(x##Data); i += 2) \
-            { \
-                x##Addr = sigScan(x##Data[i], x##Data[i + 1]); \
-                if (x##Addr) \
-                    return x##Addr; \
-                } \
-            SigValid = false; \
-        } \
-        return x##Addr; \
+    static size_t FindSignature(size_t start, size_t size, const char* sig, const char* mask)
+    {
+        return reinterpret_cast<size_t>(CommonLoader::Scan(sig, mask, strlen(mask), reinterpret_cast<void*>(start), size));
     }
+};
+
+#define SIG_SCAN(NAME, BYTES, MASK) void* NAME(){ return (void*)SignatureScanner::FindSignature(MODULE_ADDRESS, DetourGetModuleSize((HMODULE)MODULE_ADDRESS), BYTES, MASK); }
 
 // Scans
 SIG_SCAN(SigRunCore,               "\x48\x89\x5C\x24\x00\x48\x89\x74\x24\x00\x57\x48\x83\xEC\x50\x48\x8B\x99\x00\x00\x00\x00\x48\x8B\xF9\x48\x8B\x81\x00\x00\x00\x00\x48\x8D\x34\xC3\x48\x3B\xDE\x74", "xxxx?xxxx?xxxxxxxx????xxxxxx????xxxxxxxx")
@@ -73,5 +42,7 @@ SIG_SCAN(SigPrint1,                "\x4C\x89\x44\x24\x00\x4C\x89\x4C\x24\x00\xC3
 
 SIG_SCAN(SigDataHapticsv3,         "\x4E\x6F\x5F\x48\x61\x70\x74\x69\x63\x73\x00", "xxxxxxxxxxx");
 SIG_SCAN(SigDataHapticsv4,         "\x4E\x4F\x5F\x46\x5F\x46\x45\x45\x44\x42\x41", "xxxxxxxxxxx");
+
+SIG_SCAN(SigCreateFile3,           "\x48\x89\x5C\x24\x00\x56\x48\x81\xEC\x00\x00\x00\x00\x48\x8B\x01\x48\x89\xD6\x48\x89\xCB\xFF\x90\x00\x00\x00\x00\x84\xC0\x75\x13\x31\xC0\x48\x8B\x9C\x24\x00\x00", "xxxx?xxxx????xxxxxxxxxxx????xxxxxxxxxx??");
 
 SIG_SCAN(SigMain,                  "\x4C\x8B\xDC\x41\x56\x48\x81\xEC\x00\x00\x00\x00\x49\x89\x5B\x08\x49\x8D\x4B\xB8\x49\x89\x73\x18\x48\xB8\x00\x00\x00\x00\x00\x00\x00\x00\x33\xF6\x49\x89\x43\xB8", "xxxxxxxx????xxxxxxxxxxxxxx????????xxxxxx");

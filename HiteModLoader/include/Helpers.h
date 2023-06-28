@@ -15,13 +15,22 @@ static size_t PROCESS_ENTRY = (size_t)DetourGetEntryPoint((HMODULE)BASE_ADDRESS)
 #define PROC_ADDRESS(libraryName, procName) \
 	GetProcAddress(LoadLibrary(TEXT(libraryName)), procName)
 
+#define HOOK_SIG(returnType, callingConvention, functionName, signature, ...) \
+    typedef returnType callingConvention functionName(__VA_ARGS__); \
+    functionName* original##functionName = (functionName*)(nullptr); \
+	void* loc##functionName() { return signature(); } \
+    returnType callingConvention implOf##functionName(__VA_ARGS__)
+
 #define HOOK(returnType, callingConvention, functionName, location, ...) \
     typedef returnType callingConvention functionName(__VA_ARGS__); \
     functionName* original##functionName = (functionName*)(location); \
+	void* loc##functionName() { return nullptr; } \
     returnType callingConvention implOf##functionName(__VA_ARGS__)
 
 #define INSTALL_HOOK(functionName) \
 	{ \
+		if (original##functionName == nullptr) \
+			original##functionName = (functionName*)loc##functionName(); \
 		DetourTransactionBegin(); \
 		DetourUpdateThread(GetCurrentThread()); \
 		DetourAttach((void**)&original##functionName, implOf##functionName); \

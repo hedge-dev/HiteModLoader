@@ -32,7 +32,7 @@ HOOK(bool, __fastcall, SteamAPI_IsSteamRunning, PROC_ADDRESS("steam_api64.dll", 
     return true;
 }
 
-HOOK(void*, __fastcall, RunCore, SigRunCore(), void* a1)
+HOOK_SIG(void*, __fastcall, RunCore, SigRunCore, void* a1)
 {
     void* result = originalRunCore(a1);
     RaiseEvents(RunCoreEvents);
@@ -40,7 +40,7 @@ HOOK(void*, __fastcall, RunCore, SigRunCore(), void* a1)
     return result;
 }
 
-HOOK(void*, __fastcall, Engine_HandleGameLoop, SigEngine_HandleGameLoop(), void* a1)
+HOOK_SIG(void*, __fastcall, Engine_HandleGameLoop, SigEngine_HandleGameLoop, void* a1)
 {
     if (ReturnToTitle)
     {

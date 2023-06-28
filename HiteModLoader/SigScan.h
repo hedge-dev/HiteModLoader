@@ -24,4 +24,6 @@ extern void* SigPrint1();
 extern void* SigDataHapticsv3();
 extern void* SigDataHapticsv4();
 
+extern void* SigCreateFile3();
+
 extern void* SigMain();

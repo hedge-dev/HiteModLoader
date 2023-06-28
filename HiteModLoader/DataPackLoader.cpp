@@ -29,7 +29,7 @@ const char* GetDataPackName()
     return DataPackName.c_str();
 }
 
-HOOK(FILE*, __fastcall, Engine_LoadFile, SigEngine_LoadFile(), FileInfo* info, const char* filePath, int openMode)
+HOOK_SIG(FILE*, __fastcall, Engine_LoadFile, SigEngine_LoadFile, FileInfo* info, const char* filePath, int openMode)
 {
     std::string filePath2 = filePath;
 
@@ -105,13 +105,13 @@ HOOK(FILE*, __fastcall, Engine_LoadFile, SigEngine_LoadFile(), FileInfo* info, c
     return originalEngine_LoadFile(info, filePath, openMode);
 }
 
-HOOK(int, __fastcall, Engine_CloseFile, SigEngine_CloseFile(), FileInfo* info)
+HOOK_SIG(int, __fastcall, Engine_CloseFile, SigEngine_CloseFile, FileInfo* info)
 {
     info->externalFile = false;
     return originalEngine_CloseFile(info);
 }
 
-HOOK(int, __fastcall, Engine_CloseFile2, SigEngine_CloseFile2(), FileInfo* info)
+HOOK_SIG(int, __fastcall, Engine_CloseFile2, SigEngine_CloseFile2, FileInfo* info)
 {
     int result = originalEngine_CloseFile2(info);
     memset(info, 0, sizeof(FileInfo));

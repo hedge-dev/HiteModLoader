@@ -5,7 +5,7 @@
 #include "SigScan.h"
 #include "Loader.h"
 
-HOOK(int, __fastcall, Print1, SigPrint1(), RetroPrintModes printMode, const char* format, const char* p1, const char* p2, const char* p3)
+HOOK_SIG(int, __fastcall, Print1, SigPrint1, RetroPrintModes printMode, const char* format, const char* p1, const char* p2, const char* p3)
 {
     bool newLine = false;
 

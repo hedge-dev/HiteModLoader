@@ -6,7 +6,7 @@
 #include "Helpers.h"
 #include <filesystem>
 
-std::string SaveFilePath;
+std::string SaveFilePath = "";
 
 HOOK(HANDLE, __fastcall, KernelBaseCreateFileA, PROC_ADDRESS("Kernel32.dll", "CreateFileA"), 
     LPCSTR                lpFileName,

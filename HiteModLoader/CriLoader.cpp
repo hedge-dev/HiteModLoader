@@ -15,7 +15,7 @@ const char* PathSubString(const char* text)
     return text;
 }
 
-HOOK(HANDLE, __fastcall, crifsiowin_CreateFile, SigCrifsiowin_CreateFile(), CriChar8* path, DWORD dwDesiredAccess, DWORD dwShareMode, LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD dwCreationDisposition, int dwFlagsAndAttributes, HANDLE hTemplateFile)
+HOOK_SIG(HANDLE, __fastcall, crifsiowin_CreateFile, SigCrifsiowin_CreateFile, CriChar8* path, DWORD dwDesiredAccess, DWORD dwShareMode, LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD dwCreationDisposition, int dwFlagsAndAttributes, HANDLE hTemplateFile)
 {
     // Mod Check
     DWORD attributes = -1;
@@ -34,7 +34,7 @@ HOOK(HANDLE, __fastcall, crifsiowin_CreateFile, SigCrifsiowin_CreateFile(), CriC
         dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
 }
 
-HOOK(CriError, __fastcall, criFsIoWin_Exists, SigCriFsIoWin_Exists(), CriChar8* path, bool* exists)
+HOOK_SIG(CriError, __fastcall, criFsIoWin_Exists, SigCriFsIoWin_Exists, CriChar8* path, bool* exists)
 {
     DWORD attributes = -1;
     for (auto& value : ModIncludePaths)
@@ -63,9 +63,28 @@ HOOK(CriError, __fastcall, criFsIoWin_Exists, SigCriFsIoWin_Exists(), CriChar8* 
     return CRIERR_OK;
 }
 
-HOOK(void, __fastcall, criErr_Notify, SigCriErr_Notify(), CriErrorLevel level, const CriChar8* error_id, CriUintPtr p1, CriUintPtr p2)
+HOOK_SIG(void, __fastcall, criErr_Notify, SigCriErr_Notify, CriErrorLevel level, const CriChar8* error_id, CriUintPtr p1, CriUintPtr p2)
 {
     LOG("[criErr_Notify] Level: %d - %s", level, error_id);
+}
+
+// Not actually CreateFile, I ran out of ideas for a name
+HOOK_SIG(__int64, __fastcall, CreateFile3, SigCreateFile3, __int64 a1, char* path)
+{
+    // Mod Check
+    DWORD attributes = -1;
+    for (auto& value : ModIncludePaths)
+    {
+        string filePath = value + "raw/" + PathSubString(path);
+        attributes = GetFileAttributesA(filePath.c_str());
+        if (attributes != -1)
+        {
+            strcpy(path, filePath.c_str());
+            LOG("[CriLoader] Loading File: %s", path);
+            break;
+        }
+    }
+    return originalCreateFile3(a1, path);
 }
 
 void InitCriLoader()
@@ -74,4 +93,5 @@ void InitCriLoader()
     INSTALL_HOOK(crifsiowin_CreateFile);
     INSTALL_HOOK(criFsIoWin_Exists);
     INSTALL_HOOK(criErr_Notify);
+    INSTALL_HOOK(CreateFile3);
 }
