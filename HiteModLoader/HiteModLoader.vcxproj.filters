@@ -30,6 +30,7 @@
       <Filter>Handlers</Filter>
     </ClCompile>
     <ClCompile Include="Helpers.cpp" />
+    <ClCompile Include="StubFunctions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -81,6 +82,7 @@
     <ClInclude Include="include\Helpers.h">
       <Filter>Includes</Filter>
     </ClInclude>
+    <ClInclude Include="StubFunctions.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="HiteModLoader.rc" />

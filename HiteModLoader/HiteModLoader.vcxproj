@@ -122,6 +122,7 @@
     <ClInclude Include="RSDKPatches.h" />
     <ClInclude Include="SaveRedirection.h" />
     <ClInclude Include="SigScan.h" />
+    <ClInclude Include="StubFunctions.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CodeLoader.cpp" />
@@ -140,6 +141,7 @@
     <ClCompile Include="RSDKPatches.cpp" />
     <ClCompile Include="SaveRedirection.cpp" />
     <ClCompile Include="SigScan.cpp" />
+    <ClCompile Include="StubFunctions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="HiteModLoader.rc" />
