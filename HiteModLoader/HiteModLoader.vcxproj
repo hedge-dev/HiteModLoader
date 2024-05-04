@@ -73,9 +73,6 @@
       <AdditionalDependencies>detours.lib;syelog.lib;CommonLoader.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../CommonLoader/CommonLoader/$(Platform)/$(Configuration)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
-    <PostBuildEvent>
-      <Command>copy "$(TargetPath)" "D:\SteamLibrary\steamapps\common\SonicOrigins\build\main\projects\exec\d3d11.dll"</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -98,9 +95,6 @@
       <AdditionalDependencies>detours.lib;syelog.lib;CommonLoader.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../CommonLoader/CommonLoader/$(Platform)/$(Configuration)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
-    <PostBuildEvent>
-      <Command>copy "$(TargetPath)" "D:\SteamLibrary\steamapps\common\SonicOrigins\build\main\projects\exec\d3d11.dll"</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CodeLoader.h" />

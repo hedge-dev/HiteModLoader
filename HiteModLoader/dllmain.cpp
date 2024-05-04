@@ -7,7 +7,7 @@
 
 static bool Loaded = false;
 
-HOOK_SIG(void, __fastcall, Main, SigMain)
+HOOK_SIG(void, __fastcall, Main, Sigsub_140A2A988)
 {
     if (!Loaded)
     {

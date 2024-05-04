@@ -26,4 +26,4 @@ extern void* SigDataHapticsv4();
 
 extern void* SigCreateFile3();
 
-extern void* SigMain();
+extern void* Sigsub_140A2A988();
