@@ -16,7 +16,7 @@ void InitConfigLoader()
     std::string logType = config.GetString("CPKREDIR", "LogType", "");
     std::string logFile = config.GetString("CPKREDIR", "LogFile", "cpkredir.log");
     ModsDbIniPath = config.GetString("CPKREDIR", "ModsDbIni", "");
-    SaveFileFallback = config.GetString("CPKREDIR", "SaveFileFallback", "");
+    SaveFileFallback = config.GetString("CPKREDIR", "SaveFileFallback", "cpkredir.sav");
     SaveFileOverride = config.GetString("CPKREDIR", "SaveFileOverride", "");
     EnableSaveFileRedirection = config.GetBoolean("CPKREDIR", "EnableSaveFileRedirection", false);
     bool useFileLogging = false;

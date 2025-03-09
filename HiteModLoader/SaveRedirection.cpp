@@ -114,6 +114,12 @@ void InitSaveRedirection()
 
     LOG("[SaveRedirection] SaveFilePath = \"%s\"", SaveFilePath.c_str());
 
+    if (SaveFilePath.empty())
+    {
+        LOG("[SaveRedirection] SaveFilePath is empty! Save redirection will be disabled!");
+        return;
+    }
+
     INSTALL_HOOK(KernelBaseCreateFileA);
     INSTALL_HOOK(Kernel32GetFileAttributesA);
 }
